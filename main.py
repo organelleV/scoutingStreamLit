@@ -14,8 +14,8 @@ df = pd.read_csv('prematch_download.csv', index_col="Team") # use Prematch Data.
 
 matchn = int(st.text_input("Input Match #: "))
 
-teams = [st.text_input("Enter Team 1's (In order of 3 red, 3 blue) #: "), st.text_input("Enter Team 2's #: "), st.text_input("Enter Team 3's #: "),
-         st.text_input("Enter Team 4's #: "), st.text_input("Enter Team 5's #: "), st.text_input("Enter Team 6's #: ")]
+teams = [st.text_input("Enter Team # Red1 (In order of 3 red, 3 blue): "), st.text_input("Enter Team # Red2: "), st.text_input("Enter Team # Red3: "),
+         st.text_input("Enter Team # Blue1: "), st.text_input("Enter Team # Blue2: "), st.text_input("Enter Team # Blue3: ")]
 
 st.write("*Match Number:* " + str(matchn) + "")
 
