@@ -17,7 +17,7 @@ matchn = int(st.text_input("Input Match #: "))
 teams = [st.text_input("Enter Team 1's (In order of 3 red, 3 blue) #: "), st.text_input("Enter Team 2's #: "), st.text_input("Enter Team 3's #: "),
          st.text_input("Enter Team 4's #: "), st.text_input("Enter Team 5's #: "), st.text_input("Enter Team 6's #: ")]
 
-st.write("*Match Number:* " + str(matchn) + "\n")
+st.write("*Match Number:* " + str(matchn) + "")
 
 for num, tn in enumerate(teams):
     if num <= 2:
@@ -50,7 +50,7 @@ for num, tn in enumerate(teams):
         st.write(", NaN", end="")
 
     #drivebase
-    st.write("\nDrivebase: " + x["Drive Base"], end="")
+    st.write("Drivebase: " + x["Drive Base"], end="")
 
     # node
     # dict = {
@@ -69,9 +69,9 @@ for num, tn in enumerate(teams):
 
     # teleop
     try:
-        st.write("\nAvg Points Scored Teleop: " + str(x["Avg Teleop Points"]))
+        st.write("Avg Points Scored Teleop: " + str(x["Avg Teleop Points"]))
     except ValueError:
-        st.write("\nTeleop Avg: NaN Error")
+        st.write("Teleop Avg: NaN Error")
 
     # # feeder
     # st.write("Feeder Type(s): ", end="")
