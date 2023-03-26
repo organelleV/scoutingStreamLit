@@ -8,11 +8,12 @@ def download_sheet(url):
     df = pd.read_csv(sheet_url)
     df.to_csv('prematch_download.csv')
 
-download_sheet(st.text_input("Google Sheet URL:"))
+sheet_url_input = st.text_input("Google Sheet URL:")
+download_sheet(download_sheet_url)
 df = pd.read_csv('prematch_download.csv', index_col="Team") # use Prematch Data.csv
 
-
-matchn = int(st.text_input("Input Match #: "))
+matchn_input = st.text_input("Input Match #: ")
+matchn = int(matchn_input)
 
 teams = [st.text_input("Enter Team # Red1 (In order of 3 red, 3 blue): "), st.text_input("Enter Team # Red2: "), st.text_input("Enter Team # Red3: "),
          st.text_input("Enter Team # Blue1: "), st.text_input("Enter Team # Blue2: "), st.text_input("Enter Team # Blue3: ")]
