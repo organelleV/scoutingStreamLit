@@ -1,5 +1,5 @@
 import pandas as pd
-
+import streamlit as st
 
 def convert_to_export_url(url):
     return url.replace("edit#gid","export?format=csv&gid")
@@ -8,49 +8,49 @@ def download_sheet(url):
     df = pd.read_csv(sheet_url)
     df.to_csv('prematch_download.csv')
 
-download_sheet(input("Google Sheet URL:"))
+download_sheet(st.text_input("Google Sheet URL:"))
 df = pd.read_csv('prematch_download.csv', index_col="Team") # use Prematch Data.csv
 
 
-matchn = int(input("Input Match #: "))
+matchn = int(st.text_input("Input Match #: "))
 
-teams = [input("Enter Team 1's (In order of 3 red, 3 blue) #: "), input("Enter Team 2's #: "), input("Enter Team 3's #: "),
-         input("Enter Team 4's #: "), input("Enter Team 5's #: "), input("Enter Team 6's #: ")]
+teams = [st.text_input("Enter Team 1's (In order of 3 red, 3 blue) #: "), st.text_input("Enter Team 2's #: "), st.text_input("Enter Team 3's #: "),
+         st.text_input("Enter Team 4's #: "), st.text_input("Enter Team 5's #: "), st.text_input("Enter Team 6's #: ")]
 
-print("*Match Number:* " + str(matchn) + "\n")
+st.write("*Match Number:* " + str(matchn) + "\n")
 
 for num, tn in enumerate(teams):
     if num <= 2:
-        print(":red_circle:*" + tn + "*:red_circle:")
+        st.write(":red_circle:*" + tn + "*:red_circle:")
     else:
-        print(":large_blue_circle:*" + tn + "*:large_blue_circle:")
+        st.write(":large_blue_circle:*" + tn + "*:large_blue_circle:")
 
     x = df.loc[int(tn)]
 
     # Auto
-    print("Auto: ", end="")
+    st.write("Auto: ", end="")
     als = ["Low", "Mid", "High"]
     c = 3
     try:
         for i in als:
             if int(x[f"Normal # of Pieces {i} Auto"]) != 0:
-                print(str(x[f"Normal # of Pieces {i} Auto"]) + f" {i}", end="")
+                st.write(str(x[f"Normal # of Pieces {i} Auto"]) + f" {i}", end="")
                 c -= 1
         if c == 3:
-            print("No pieces in Auto", end="")
+            st.write("No pieces in Auto", end="")
     except ValueError:
-        print("NaN, ", end="")
+        st.write("NaN, ", end="")
 
     try:
         if float(x["AUTO % Engage"].replace("%", "")) > 50:
-            print(" and Engage", end="")
+            st.write(" and Engage", end="")
         if float(x["AUTO % Mobility"].replace("%", "")) > 50:
-            print(" and Mobility ", end="")
+            st.write(" and Mobility ", end="")
     except ValueError:
-        print(", NaN", end="")
+        st.write(", NaN", end="")
 
     #drivebase
-    print("\nDrivebase: " + x["Drive Base"], end="")
+    st.write("\nDrivebase: " + x["Drive Base"], end="")
 
     # node
     # dict = {
@@ -61,20 +61,20 @@ for num, tn in enumerate(teams):
     # y = max(float(str(x["% Low Score"]).replace("%", "")), float(str(x["% Mid Score"]).replace("%", "")), float(str(x["% High Score"]).replace("%", "")))
     # for i in dict.values():
     #     if str(i) != "0.0" and (str(i) == "50.0" or str(i) == "33.3"):
-    #         print("\nNode(s): " + ", ".join([k for k, v in dict.items() if v == i]), end="")
+    #         st.write("\nNode(s): " + ", ".join([k for k, v in dict.items() if v == i]), end="")
     #         break
     #     else:
-    #         print("\nNode(s): " + list(dict.keys())[list(dict.values()).index(float(y))] + " Node", end="")
+    #         st.write("\nNode(s): " + list(dict.keys())[list(dict.values()).index(float(y))] + " Node", end="")
     #         break
 
     # teleop
     try:
-        print("\nAvg Points Scored Teleop: " + str(x["Avg Teleop Points"]))
+        st.write("\nAvg Points Scored Teleop: " + str(x["Avg Teleop Points"]))
     except ValueError:
-        print("\nTeleop Avg: NaN Error")
+        st.write("\nTeleop Avg: NaN Error")
 
     # # feeder
-    # print("Feeder Type(s): ", end="")
+    # st.write("Feeder Type(s): ", end="")
     # try:
     #     dict2 = {
     #         "Ground": float(str(x["% Field Pickup"]).replace("%", "")),
@@ -86,21 +86,21 @@ for num, tn in enumerate(teams):
     #     feederls.sort(reverse=True)
     #     for i in feederls:
     #         if str(i) != "0.0" and str(i) == "50.0" or str(i) == "33.3":
-    #             print(" ".join([k for k, v in dict2.items() if v == i]), end="")
+    #             st.write(" ".join([k for k, v in dict2.items() if v == i]), end="")
     #             break
     #         elif str(i) != "0.0":
-    #             print(list(dict2.keys())[list(dict2.values()).index(i)], end=" ")
+    #             st.write(list(dict2.keys())[list(dict2.values()).index(i)], end=" ")
     #             break
     # except ValueError:
-    #     print("NaN Error", end="")
+    #     st.write("NaN Error", end="")
 
     # defense?
     try:
-        print("Defense: Yes") if float(x["Defense Performance"]) > 5.0 else print("Defense: No")
+        st.write("Defense: Yes") if float(x["Defense Performance"]) > 5.0 else st.write("Defense: No")
     except ValueError:
-        print("Defense: NaN Error")
+        st.write("Defense: NaN Error")
 
     # newline  /\_/\
     #         ( o.o )
     #          > ^ <
-    print("\n")
+    st.write("\n")
