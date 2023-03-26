@@ -8,17 +8,17 @@ def download_sheet(url):
     df = pd.read_csv(sheet_url)
     df.to_csv('prematch_download.csv')
 
-sheet_url_input = st.text_input("Google Sheet URL:")
+sheet_url_input = st.text_area("Google Sheet URL:")
 if sheet_url_input != '':
     download_sheet(sheet_url_input)
     df = pd.read_csv('prematch_download.csv', index_col="Team") # use Prematch Data.csv
 
-    matchn_input = st.text_input("Input Match #: ")
+    matchn_input = st.text_area("Input Match #: ")
     if matchn_input != '':
         matchn = int(matchn_input)
 
-        teams = [st.text_input("Enter Team # Red1 (In order of 3 red, 3 blue): "), st.text_input("Enter Team # Red2: "), st.text_input("Enter Team # Red3: "),
-                st.text_input("Enter Team # Blue1: "), st.text_input("Enter Team # Blue2: "), st.text_input("Enter Team # Blue3: ")]
+        teams = [st.text_area("Enter Team # Red1 (In order of 3 red, 3 blue): "), st.text_area("Enter Team # Red2: "), st.text_area("Enter Team # Red3: "),
+                st.text_area("Enter Team # Blue1: "), st.text_area("Enter Team # Blue2: "), st.text_area("Enter Team # Blue3: ")]
 
         st.write("*Match Number:* " + str(matchn) + "")
 
