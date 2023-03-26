@@ -9,7 +9,7 @@ def download_sheet(url):
     df.to_csv('prematch_download.csv')
 
 sheet_url_input = st.text_input("Google Sheet URL:")
-download_sheet(download_sheet_url)
+download_sheet(sheet_url_input)
 df = pd.read_csv('prematch_download.csv', index_col="Team") # use Prematch Data.csv
 
 matchn_input = st.text_input("Input Match #: ")
